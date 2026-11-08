@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tab Goblin</title>
+  <link rel="icon" href="../icons/icon32.png">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="goblin" id="goblin" aria-hidden="true"></div>
+      <div class="hero-text">
+        <div class="count"><span id="total">–</span> tabs open</div>
+        <div class="sub" id="sub">Counting tabs…</div>
+        <div class="bubble" id="line"></div>
+      </div>
+    </header>
+
+    <div class="actions">
+      <button class="btn primary" id="feedBtn">Feed the goblin</button>
+      <button class="btn" id="saveBtn">Save session</button>
+    </div>
+
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-view="tabs" aria-selected="true">Tabs <span id="nTabs"></span></button>
+      <button role="tab" data-view="sessions" aria-selected="false">Sessions <span id="nSessions"></span></button>
+      <button role="tab" data-view="settings" aria-selected="false">Keep &amp; settings</button>
+    </nav>
+
+    <main>
+      <section class="view" id="view-tabs" role="tabpanel">
+        <div class="tools">
+          <input class="field" id="search" type="search" placeholder="Find a tab" aria-label="Find a tab">
+        </div>
+        <ul class="list" id="tabList" aria-label="Open tabs, longest ignored first"></ul>
+      </section>
+
+      <section class="view" id="view-sessions" role="tabpanel" hidden>
+        <form class="save-row" id="saveForm" autocomplete="off">
+          <input class="field" id="sessionName" maxlength="80" placeholder="Name this session (optional)" aria-label="Session name">
+          <button class="btn primary" type="submit">Save</button>
+        </form>
+        <p class="hint">Saves every tab in every window. Sessions stay saved after Chrome restarts. The goblin also autosaves every 5 minutes.</p>
+        <ul class="list sessions" id="sessionList"></ul>
+      </section>
+
+      <section class="view" id="view-settings" role="tabpanel" hidden>
+        <h3>Keep list</h3>
+        <p class="hint">The goblin never touches these sites, not even when you feed it.</p>
+        <div class="chips" id="keepChips"></div>
+        <form class="save-row" id="keepForm" autocomplete="off">
+          <input class="field" id="keepInput" placeholder="Add a site, e.g. mail.google.com" aria-label="Site to keep">
+          <button class="btn" type="submit">Add</button>
+        </form>
+
+        <h3>The goblin eats tabs ignored for</h3>
+        <select class="field" id="threshold" aria-label="Ignored for at least"></select>
+
+        <label class="sw-row"><span><b>Let it eat on its own</b><small>Every 5 minutes, without you pressing Feed.</small></span><input type="checkbox" role="switch" data-key="autoFeed"></label>
+        <label class="sw-row"><span><b>Leave pinned tabs alone</b><small>Pinned tabs are never put to sleep.</small></span><input type="checkbox" role="switch" data-key="sparePinned"></label>
+        <label class="sw-row"><span><b>Restore sessions asleep</b><small>Only the first tab loads; the rest wake when you click them.</small></span><input type="checkbox" role="switch" data-key="restoreAsleep"></label>
+
+        <div class="safe">
+          <b>Always safe from the goblin</b>
+          <span>The tab you're on · tabs playing sound · tabs with a half-filled form · your Keep list</span>
+        </div>
+        <p class="stats" id="stats"></p>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="../shared.js"></script>
+  <script src="goblin.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
