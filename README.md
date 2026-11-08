@@ -1,7 +1,5 @@
 # Tab Goblin
 
-**Project 14 · Section C (Chrome extensions) · GenAI Internship, Week 2**
-
 A goblin eats the tabs you ignored. It puts them to sleep without closing them, and can bring them back.
 
 > You have 47 tabs open, the laptop fan is screaming, and you're scared to close any of them. The goblin clears the mess without losing anything you need.
